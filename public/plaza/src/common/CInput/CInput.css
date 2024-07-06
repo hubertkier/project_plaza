@@ -1,0 +1,15 @@
+
+.basic-input {
+
+    height: 2em;
+    width: 20em;
+    border-radius: 0.5em;
+
+    margin: 1em;
+    border: blue 0.2em solid;
+}
+
+.error-input {
+    border: red 0.2em solid;
+
+}
