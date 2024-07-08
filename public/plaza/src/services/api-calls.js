@@ -1,6 +1,7 @@
 
-const root = "https://dummyjson.com/"
-const movie_api_key = "210d6a5dd3f16419ce349c9f1b200d6d"
+const root = "http://127.0.0.1:8000/"
+
+
 
 // url: `${root}search/movie?api_key=${apiKey}&language=en-US&query=${criteria}&page=1&include_adult=false`
 
@@ -9,7 +10,9 @@ export async function LoginMe (credentials) {
 
     let rawData = await fetch(`${root}auth/login`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           
           username: credentials.name,
@@ -19,6 +22,7 @@ export async function LoginMe (credentials) {
       })
       
     let data = await rawData.json()
+    console.log(data);
     return data;
 }
 

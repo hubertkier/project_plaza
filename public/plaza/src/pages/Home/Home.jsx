@@ -38,7 +38,7 @@ function Home() {
         //I have got the movies
         <div>
           {locations.map((location) => {
-            return <div key={location.id}><AdverbCard photo={location.photo}  author={location.author} title={location.title} description={location.description} cost={location.cost} likes={location.likes}></AdverbCard></div>;
+            return <div key={location.id}><AdverbCard photo={location.base64_photo}  author={location.author} title={location.title} description={location.short_description} cost={location.cost} likes={location.likes}></AdverbCard></div>;
           })}
         </div>
       ) : (

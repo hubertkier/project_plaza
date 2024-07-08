@@ -10,7 +10,7 @@ return [
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['Origin, Content-Type, X-Auth-Token , Cookie'],
+    'allowed_headers' => ['Origin, Content-Type, X-Auth-Token , Cookie', 'x-csrftoken'],
 
     'exposed_headers' => [],
 

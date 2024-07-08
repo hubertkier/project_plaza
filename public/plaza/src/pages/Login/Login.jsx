@@ -4,12 +4,14 @@ import CInput from "../../common/CInput/CInput";
 import "./Login.css";
 import checkE from "../../utils/errors";
 import { LoginMe } from "../../services/api-calls";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
 
   //Instance of the context
 
   const {state, SetAuth} = useContext(myContext)
+  const navigate = useNavigate("");
 
   const [credentials, setCredentials] = useState({
     name: "",
@@ -45,7 +47,8 @@ function Login() {
 
     LoginMe(credentials)
         .then(res => {
-          SetAuth("token", res.token)
+          SetAuth("token", res.api_token)
+          navigate("/home")
         })
         .catch(error => console.log(error))
   };
