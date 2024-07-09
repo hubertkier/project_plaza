@@ -10,3 +10,5 @@ Route::get('/', function () {
 
 Route::get('/locations', [TostController::class, 'index']);
 Route::post('/auth/login', [UserController::class, 'login']);
+Route::post('/auth/register', [UserController::class, 'register']);
+

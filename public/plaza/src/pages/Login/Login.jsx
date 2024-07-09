@@ -18,6 +18,8 @@ function Login() {
     password: "",
   });
 
+  const [loginErrors, setLoginErrors] = useState("");
+
   const [credentialsErrors, setCredentialsErrors] = useState({
     nameError: "",
     passwordError: "",
@@ -47,10 +49,18 @@ function Login() {
 
     LoginMe(credentials)
         .then(res => {
-          SetAuth("token", res.api_token)
-          navigate("/home")
+          if(res.status == "Success"){
+            SetAuth("token", res.api_token)
+            navigate("/home")
+          }
+          else{
+            console.log(res.status)
+            setLoginErrors(res.status)
+          }
+          
         })
         .catch(error => console.log(error))
+  
   };
 
   // useEffect(()=>{
@@ -71,6 +81,7 @@ function Login() {
         emitFunction={inputHandler}
         errorCheck={errorCheck}
       />
+      { loginErrors }
       {credentialsErrors.nameError}
       <CInput
         type="password"
@@ -91,6 +102,7 @@ function Login() {
             Login me!
           </div>
         )}
+      
     </div>
   );
 }

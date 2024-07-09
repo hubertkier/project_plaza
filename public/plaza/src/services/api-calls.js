@@ -22,13 +22,12 @@ export async function LoginMe (credentials) {
       })
       
     let data = await rawData.json()
-    console.log(data);
     return data;
 }
 
 export async function bringLocations() {
 
-  let rawData = await fetch("http://localhost:8000/locations")
+  let rawData = await fetch(`${root}locations`)
 
   let locationData = await rawData.json()
   console.log(locationData)
@@ -37,3 +36,21 @@ export async function bringLocations() {
 
 }
 
+export async function RegisterMe (credentials) {
+
+  let rawData = await fetch(`${root}auth/register`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: credentials.name,
+        password: credentials.password,
+        email: credentials.email,
+      })
+    })
+    
+  let data = await rawData.json()
+  console.log(data);
+  return data;
+}

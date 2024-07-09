@@ -13,7 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->validateCsrfTokens(except: [
-            '/auth/login'
+            '/auth/login',
+            '/auth/register'
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
