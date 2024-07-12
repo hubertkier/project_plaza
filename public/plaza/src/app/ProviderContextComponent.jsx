@@ -6,6 +6,7 @@ export const MyProvider = ({ children }) => {
     auth: {
       token: "",
       name: "",
+      locationdetail: "",
       location: {}
     },
   });

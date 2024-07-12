@@ -51,6 +51,8 @@ function Login() {
         .then(res => {
           if(res.status == "Success"){
             SetAuth("token", res.api_token)
+
+
             navigate("/home")
           }
           else{

@@ -3,7 +3,7 @@ import Home from "../Home/Home";
 import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
-import MovieDetail from "../MovieDetail/MovieDetail";
+import LocationDetail from "../LocationDetail/LocationDetail";
 
 import { myContext } from "../../app/context";
 import { useContext } from "react";
@@ -21,6 +21,10 @@ function Body() {
         {/* Protected Routes */}
         {state.auth.token !== "" ? (
           <Route path="/profile" element={<Profile />} />
+        ) : null}
+
+        {state.auth.token !== "" ? (
+          <Route path="/detail" element={<LocationDetail />} />
         ) : null}
       </Routes>
     </>

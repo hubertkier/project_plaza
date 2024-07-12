@@ -13,8 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->validateCsrfTokens(except: [
-            '/auth/login',
-            '/auth/register'
+            '/auth/*',
+            '/location/like',
+            '/location/liked',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
