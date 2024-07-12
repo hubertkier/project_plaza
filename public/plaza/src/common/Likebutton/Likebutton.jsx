@@ -1,19 +1,25 @@
-
-import "./Likebutton.css"
+import React from "react";
+import "./Likebutton.css";
 import { Like } from "../../services/api-calls";
 import { useNavigate } from "react-router-dom";
 
-function Likebutton ({token, location, service}) {
+function Likebutton({ token, location, service, onClick }) {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate()
-    function use(token, location){
-        Like(token, location)
+  const handleClick = async () => {
+    try {
+      await Like(token, location, service);
+      onClick(); // Trigger onClick callback passed from parent component
+    } catch (error) {
+      console.log(error);
     }
-    return (
-        <div className="Likebutton-design" onClick={() => use(token, location)}>
-            {service}
-        </div>
-    )
+  };
+
+  return (
+    <div className="like-button" onClick={handleClick}>
+      <span>{service}</span>
+    </div>
+  );
 }
 
 export default Likebutton;

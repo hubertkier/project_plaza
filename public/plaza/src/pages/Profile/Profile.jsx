@@ -1,79 +1,91 @@
-
-import "./Profile.css"; import { useState, useContext, useEffect } from "react"
-import { bringUser } from "../../services/api-calls";
-import { myContext } from "../../app/context"
-import { ValidateUser } from "../../services/api-calls";
-import { useNavigate } from "react-router-dom";
-
+import React, { useState, useContext, useEffect } from "react";
+import { bringUser, ValidateUser } from "../../services/api-calls";
+import { myContext } from "../../app/context";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 import LikeCard from "../../common/LikeCard/LikeCard.jsx";
+import "./Profile.css";
+
 function Profile() {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { state, SetAuth } = useContext(myContext);
+  const [userinfo, setUserInfo] = useState(null);
 
-    function seeDetails(locationid) {
-        console.log("click");
-        if (state.auth.token) {
-
-            ValidateUser(state.auth.token)
-                .then(res => {
-                    if (res.status == "Success") {
-                        SetAuth("locationdetail", locationid)
-                        navigate(`/detail`)
-                    }
-                    else {
-                        console.log(res.status);
-
-                    }
-
-                })
-                .catch(error => console.log(error))
-        } else {
-        }
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        let decoded = jwtDecode(state.auth.token);
+        const res = await bringUser(decoded?.firstName);
+        setUserInfo(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (state.auth.token) {
+      getUsers();
     }
+  }, [state]);
 
-    const { state, SetAuth } = useContext(myContext)
-    const [userinfo, setuserinfo] = useState([]);
+  function seeDetails(locationid) {
+    if (state.auth.token) {
+      ValidateUser(state.auth.token)
+        .then((res) => {
+          if (res.status === "Success") {
+            SetAuth("locationdetail", locationid);
+            navigate(`/detail`);
+          } else {
+            console.log(res.status);
+          }
+        })
+        .catch((error) => console.log(error));
+    }
+  }
 
-    useEffect(() => {
-        const getUsers = async () => {
-            let $decoded = jwtDecode(state.auth.token)
-            await bringUser($decoded?.firstName)
-                .then((res) => {
-                    setuserinfo(res);
-
-                })
-                .catch((error) => console.log(error));
-        };
-            getUsers();
-
-
-    }, [userinfo]);
-
-    return (
-        <div className="profile">
-            <div className="profile-design">
-                Username: {userinfo?.username} <br></br>
-                Email: {userinfo?.email} <br></br>
-
-                {userinfo?.liked?.length > 0 ? (
-
-                    <div>
-
-                        {userinfo?.liked.map((location) => {
-
-                            return <div key={location[0]} onClick={() => seeDetails(location[0])}><LikeCard photo={location[2]} author={""} title={location[1]} description={""} cost={""} likes={""}></LikeCard></div>;
-
-                        })}
-
-                    </div>
-
-                ) : (
-                    <div>LOADING.......</div>
-                )}
-
+  return (
+    <div className="profile-container">
+      <div className="profile-content">
+        {userinfo ? (
+          <>
+            <div className="profile-info">
+              <div className="profile-item">
+                <span className="profile-label">Username:</span>{" "}
+                {userinfo?.username}
+              </div>
+              <div className="profile-item">
+                <span className="profile-label">Email:</span>{" "}
+                {userinfo?.email}
+              </div>
             </div>
-        </div>
-    )
+
+            {userinfo?.liked?.length > 0 ? (
+              <div className="liked-locations">
+                {userinfo.liked.map((location) => (
+                  <div
+                    key={location[0]}
+                    className="liked-location"
+                    onClick={() => seeDetails(location[0])}
+                  >
+                    <LikeCard
+                      photo={location[2]}
+                      author={""}
+                      title={location[1]}
+                      description={""}
+                      cost={""}
+                      likes={""}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="loading-message">LOADING.......</div>
+            )}
+          </>
+        ) : (
+          <div className="loading-message">LOADING.......</div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default Profile;

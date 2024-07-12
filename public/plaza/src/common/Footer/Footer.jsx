@@ -1,12 +1,13 @@
-import "./Footer.css"
+import "./Footer.css";
 
-function Footer () {
+function Footer() {
+  return (
+    <div className="footer-design">
+      <p>Author: Hubert Kiernozycki</p>
+      <p>Made for: Esmovia</p>
 
-    return (
-        <div className="footer-design">
-
-        </div>
-    )
+    </div>
+  );
 }
 
 export default Footer;

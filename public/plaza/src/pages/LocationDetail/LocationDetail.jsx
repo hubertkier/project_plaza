@@ -1,69 +1,80 @@
-
-import { useState, useContext, useEffect } from "react"
-import { bringLocation, Liked, Like } from "../../services/api-calls";
-import "./LocationDetail.css"
+import { useState, useContext, useEffect } from "react";
+import { bringLocation, Liked } from "../../services/api-calls";
+import "./LocationDetail.css";
 import Likebutton from "../../common/Likebutton/Likebutton";
 
-import { myContext } from "../../app/context"
-import AdverbCard from "../../common/Ad-card.jsx/AdverbCard";
+import { myContext } from "../../app/context";
+import DetailCard from "../../common/DetailCard/DetailCard";
 
-function LocationDetail () {
+function LocationDetail() {
+  const { state, SetAuth } = useContext(myContext);
+  const [location, setLocation] = useState(null);
+  const [isLiked, setIsLiked] = useState(false);
 
-    
-    const { state, SetAuth } = useContext(myContext)
-    const [location, setLocation] = useState([]);
+  useEffect(() => {
+    const getLocations = async () => {
+      try {
+        const locationRes = await bringLocation(state.auth.locationdetail);
+        setLocation(locationRes);
 
-    useEffect(() => {
-        if (location.length === 0) {
-        const getLocations = async () => {
-            bringLocation(state.auth.locationdetail)
+        const likedRes = await Liked(state.auth.token, state.auth.locationdetail);
+        setIsLiked(likedRes);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-            .then((res) => {
+    getLocations();
+  }, [state.auth.locationdetail, state.auth.token]);
 
-                setLocation(res);
-
-                Liked(state.auth.token, state.auth.locationdetail)
-                .then((res) => {
-                    if(res == true){
-                        location.is_liked = true;
-                    }
-                })
-                .catch((error) => console.log(error));
-
-
-            })
-            .catch((error) => console.log(error));
-        };
-        getLocations();
+  const handleLikeToggle = async () => {
+    try {
+      if (isLiked) {
+        setIsLiked(false);
+        setLocation((prevLocation) => ({
+          ...prevLocation,
+          likes: prevLocation.likes - 1,
+        }));
+      } else {
+        setIsLiked(true);
+        setLocation((prevLocation) => ({
+          ...prevLocation,
+          likes: prevLocation.likes + 1,
+        }));
+      }
+    } catch (error) {
+      console.log(error);
     }
-    });
+  };
 
-    return (
+  if (!location) {
+    return <div>Loading...</div>;
+  }
 
-        <div className="home-design">
-          
-            
-            <div>
+  return (
+    <div className="home-design">
+      <div>
+        <Likebutton
+          token={state.auth.token}
+          location={state.auth.locationdetail}
+          service={isLiked ? "Unlike" : "Like"}
+          onClick={handleLikeToggle}
+        />
+        <DetailCard
+          photo={location.base64_photo}
+          author={location.author}
+          title={location.title}
+          description={location.full_description}
+          price={location.price}
+          saves={location.saves}
+          lon={location.lon}
+          lat={location.lat}
+          likes={location.likes}
+        />
+      </div>
 
-
-                <AdverbCard  photo={location.base64_photo}  author={location.author} title={location.title} description={location.short_description} cost={location.cost} likes={location.likes}></AdverbCard>
-              
-            </div>
-            
-            {location == true ? (
-                <div>
-                <Likebutton token={state.auth.token} service={"Unlike"} location={state.auth.locationdetail} />
-                </div>
-            ) : (
-                <div>
-                <Likebutton token={state.auth.token} service={"Like"} location={state.auth.locationdetail} />
-                </div>
-            )}
-            
-          
-          
-        </div>
-      );
+    </div>
+  );
 }
 
-export default LocationDetail
+export default LocationDetail;

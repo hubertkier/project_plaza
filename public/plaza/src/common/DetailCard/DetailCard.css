@@ -1,0 +1,103 @@
+.card-design {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    margin-bottom: 20px;
+  }
+  
+  .card-design:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card-content {
+    display: flex;
+  }
+  
+  .card-left {
+    flex: 1;
+  }
+  
+  .card-image-container {
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .card-right {
+    flex: 2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .card-author {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .card-description {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  
+  .card-details {
+    margin-bottom: 10px;
+  }
+  
+  .card-cost {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .card-interactions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .card-interactions .like-button,
+  .card-interactions .save-button {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .card-interactions .like-button:hover,
+  .card-interactions .save-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .card-interactions .like-button i,
+  .card-interactions .save-button i {
+    margin-right: 5px;
+  }
+  
+  .map-container {
+    width: 100%;
+    height: 200px;
+    margin-top: 20px;
+  }
+  
+  .map-container iframe {
+    border: none;
+    border-radius: 8px;
+  }
+  

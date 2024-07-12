@@ -30,7 +30,6 @@ export async function bringLocations() {
   let rawData = await fetch(`${root}locations`)
 
   let locationData = await rawData.json()
-
   return locationData
 
 }
@@ -96,7 +95,6 @@ export async function bringUser(id) {
 
 export async function Like (token, id) {
   let decoded = jwtDecode(token)
-  console.log(token,id)
   let rawData = await fetch(`${root}location/like`, {
       method: 'POST',
       headers: { 
@@ -113,7 +111,6 @@ export async function Like (token, id) {
 }
 
 export async function Liked (token, id) {
-  console.log(token,id)
   let decoded = jwtDecode(token)
   let rawData = await fetch(`${root}location/liked`, {
       method: 'POST',

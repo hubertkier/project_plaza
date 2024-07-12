@@ -1,11 +1,49 @@
-.profile-design {
-
-    height: 82vh;
-    width: 100vw;
-
-    background-color: lightgreen;
-
+.profile-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-}
+    padding: 20px;
+    width: 100vw;
+  }
+  
+  .profile-content {
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .profile-info {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .profile-item {
+    margin-bottom: 10px;
+  }
+  
+  .profile-label {
+    font-weight: bold;
+  }
+  
+  .liked-locations {
+    display: grid;
+    gap: 20px;
+  }
+  
+  .liked-location {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .liked-location:hover {
+    transform: translateY(-5px);
+  }
+  
+  .loading-message {
+    margin-top: 20px;
+    text-align: center;
+    font-style: italic;
+    color: #666;
+  }
+  

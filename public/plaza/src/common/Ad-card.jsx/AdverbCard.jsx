@@ -1,17 +1,23 @@
-import "./AdverbCard.css"
+import React from "react";
+import "./AdverbCard.css";
 
-function AdverbCard ({photo, title, author, description, cost, likes}) {
-
-    return (
-        <div className="carddesign">
-            <img width="150vw" height="90vh" src={photo}></img>
-            <div>Place: {title}</div><br></br>
-            <div>Author: {author}</div><br></br>
-            <div>Description: {description}</div><br></br>
-            <div>Cost per person: {cost}</div><br></br>
-            <div>Likes: {likes}</div><br></br>
+function AdverbCard({ photo, title, author, description, price, likes }) {
+  return (
+    <div className="card-design">
+      <img src={photo} alt="Location" className="card-image" />
+      <div className="card-info">
+        <div className="card-title">{title}</div>
+        <div className="card-author">By {author}</div>
+        <div className="card-description">{description}</div>
+        <div className="card-details">
+          <div className="card-cost">Cost per person: {price}</div>
+          <div className="card-likes">
+            <span role="img" aria-label="Heart">❤️</span> {likes}
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
 export default AdverbCard;

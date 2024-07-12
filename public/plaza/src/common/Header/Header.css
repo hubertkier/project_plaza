@@ -1,17 +1,36 @@
-
 .header-design {
-    height: 10vh;
     width: 100vw;
-
-    background-color: cornflowerblue;
-
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-
-.logo-design {
-    height: 6em;
-    width: 9em;
-}
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f334d0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-container {
+    cursor: pointer;
+  }
+  
+  .logo-design {
+    height: 50px;
+    width: auto;
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .nav-links div {
+    cursor: pointer;
+  }
+  
+  .logout {
+    cursor: pointer;
+  }
+  
+  .logout:hover {
+    text-decoration: underline;
+  }
+  
